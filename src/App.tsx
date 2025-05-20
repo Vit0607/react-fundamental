@@ -1,22 +1,19 @@
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
-  const [likes, setLikes] = useState<number>(0);
+  const [value, setValue] = useState<string>('Текст в инпуте');
 
-  const decrement = () => {
-    setLikes(likes - 1);
-  };
+  type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
-  const increment = () => {
-    setLikes(likes + 1);
+  const handleInput = (e: InputEvent) => {
+    setValue(e.target.value);
   };
 
   return (
     <>
-      <button onClick={decrement}>-</button>
-      <span>{likes}</span>
-      <button onClick={increment}>+</button>
+      <h1>{value}</h1>
+      <input value={value} placeholder={value} onChange={handleInput} />
     </>
   );
 }
