@@ -1,19 +1,12 @@
 import './App.css';
-import React, { useState } from 'react';
+import Counter from './components/Counter/Counter';
 
 function App() {
-  const [value, setValue] = useState<string>('Текст в инпуте');
-
-  type InputEvent = React.ChangeEvent<HTMLInputElement>;
-
-  const handleInput = (e: InputEvent) => {
-    setValue(e.target.value);
-  };
-
   return (
     <>
-      <h1>{value}</h1>
-      <input value={value} placeholder={value} onChange={handleInput} />
+      <Counter />
+      <Counter />
+      <Counter />
     </>
   );
 }
