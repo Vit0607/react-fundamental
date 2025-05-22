@@ -13,8 +13,15 @@ const PostList = ({ posts, title }: PostListProps) => {
   return (
     <>
       <h1>{title}</h1>
-      {posts.map(post => {
-        return <PostItem key={post.id} title={post.title} body={post.body} />;
+      {posts.map((post, index) => {
+        return (
+          <PostItem
+            key={post.id}
+            number={index + 1}
+            title={post.title}
+            body={post.body}
+          />
+        );
       })}
     </>
   );
