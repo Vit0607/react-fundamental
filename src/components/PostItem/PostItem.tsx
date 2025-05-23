@@ -1,24 +1,31 @@
 import styles from './PostItem.module.scss';
+import MyButton from '../UI/button/MyButton';
+
+type PostType = {
+  id: number;
+  title: string;
+  body: string;
+};
 
 const PostItem = ({
   number,
-  title,
-  body
+  remove,
+  post
 }: {
   number: number;
-  title: string;
-  body: string;
+  post: PostType;
+  remove: (post: PostType) => void;
 }) => {
   return (
     <div className={styles.post}>
       <div className={styles.post__content}>
         <strong>
-          {number}. {title}
+          {number}. {post.title}
         </strong>
-        <div>{body}</div>
+        <div>{post.body}</div>
       </div>
       <div className={styles.post__btns}>
-        <button>Удалить</button>
+        <MyButton onClick={() => remove(post)}>Удалить</MyButton>
       </div>
     </div>
   );

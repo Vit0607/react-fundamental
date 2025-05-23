@@ -1,11 +1,13 @@
 import './App.css';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import PostList from './components/PostList/PostList';
-import MyButton from './components/UI/button/MyButton';
-import MyInput from './components/UI/input/MyInput';
+import PostForm from './components/PostForm/PostForm';
 
-type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
-type InputEvent = React.ChangeEvent<HTMLInputElement>;
+type PostType = {
+  id: number;
+  title: string;
+  body: string;
+};
 
 function App() {
   const [posts, setPosts] = useState([
@@ -14,41 +16,22 @@ function App() {
     { id: 3, title: 'Javascript 3', body: 'Description' }
   ]);
 
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-
-  const addNewPost = (e: ButtonEvent) => {
-    e.preventDefault();
-
-    const newPost = {
-      id: Date.now(),
-      title,
-      body
-    };
-
+  const createPost = (newPost: PostType) => {
     setPosts([...posts, newPost]);
-    setTitle('');
-    setBody('');
+  };
+
+  const removePost = (post: PostType) => {
+    setPosts(posts.filter(p => p.id !== post.id));
   };
 
   return (
     <>
-      <form>
-        <MyInput
-          placeholder="Название поста"
-          value={title}
-          onChange={(e: InputEvent) => setTitle(e.target.value)}
-        />
-        <MyInput
-          placeholder="Описание поста"
-          value={body}
-          onChange={(e: InputEvent) => setBody(e.target.value)}
-        />
-        <MyButton disabled={false} onClick={addNewPost}>
-          Создать пост
-        </MyButton>
-      </form>
-      <PostList posts={posts} title="Посты про JS" />
+      <PostForm create={createPost} />
+      {posts.length !== 0 ? (
+        <PostList remove={removePost} posts={posts} title="Посты про JS" />
+      ) : (
+        <h1>Ничего не найдено!</h1>
+      )}
     </>
   );
 }

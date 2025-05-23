@@ -1,5 +1,11 @@
 import PostItem from '../PostItem/PostItem';
 
+type PostType = {
+  id: number;
+  title: string;
+  body: string;
+};
+
 type PostListProps = {
   posts: {
     id: number;
@@ -7,9 +13,10 @@ type PostListProps = {
     body: string;
   }[];
   title: string;
+  remove: (post: PostType) => void;
 };
 
-const PostList = ({ posts, title }: PostListProps) => {
+const PostList = ({ posts, title, remove }: PostListProps) => {
   return (
     <>
       <h1>{title}</h1>
@@ -18,8 +25,8 @@ const PostList = ({ posts, title }: PostListProps) => {
           <PostItem
             key={post.id}
             number={index + 1}
-            title={post.title}
-            body={post.body}
+            post={post}
+            remove={remove}
           />
         );
       })}
