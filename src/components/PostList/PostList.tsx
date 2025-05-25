@@ -1,4 +1,5 @@
 import PostItem from '../PostItem/PostItem';
+import styles from './PostList.module.scss';
 
 type PostType = {
   id: number;
@@ -19,7 +20,7 @@ type PostListProps = {
 const PostList = ({ posts, title, remove }: PostListProps) => {
   return (
     <>
-      <h1>{title}</h1>
+      <h1 className={styles.title}>{title}</h1>
       {posts.map((post, index) => {
         return (
           <PostItem
