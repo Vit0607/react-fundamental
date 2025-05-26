@@ -18,6 +18,10 @@ type PostListProps = {
 };
 
 const PostList = ({ posts, title, remove }: PostListProps) => {
+  if (posts.length == 0) {
+    return <h1 className={styles.title}>Посты не найдены!</h1>;
+  }
+
   return (
     <>
       <h1 className={styles.title}>{title}</h1>

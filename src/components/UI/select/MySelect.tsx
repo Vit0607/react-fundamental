@@ -3,11 +3,11 @@ type SortKey = 'title' | 'body';
 type MySelectProps = {
   defaultValue: string;
   options: {
-    value: SortKey;
+    value: SortKey | string;
     name: string;
   }[];
-  value: SortKey | '';
-  onChange: (e: SortKey) => void;
+  value: SortKey | string;
+  onChange: (arg: SortKey) => void;
 };
 
 type SelectEvent = React.ChangeEvent<HTMLSelectElement>;
