@@ -7,12 +7,20 @@ import PostForm from './components/PostForm/PostForm';
 import MyButton from './components/UI/button/MyButton';
 import type { PostType, FilterType } from './types/posts';
 import { usePosts } from './hooks/usePosts';
+import axios from 'axios';
 
 function App() {
   const [posts, setPosts] = useState<PostType[]>([]);
 
   const [filter, setFilter] = useState<FilterType>({ sort: '', query: '' });
   const [modal, setModal] = useState<boolean>(false);
+
+  const fetchPosts = async () => {
+    const response = await axios.get(
+      'https://jsonplaceholder.typicode.com/posts'
+    );
+    setPosts(response.data);
+  };
 
   const selectedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
@@ -27,6 +35,7 @@ function App() {
 
   return (
     <>
+      <button onClick={fetchPosts}>GET POSTS</button>
       <MyButton style={{ marginTop: '20px' }} onClick={() => setModal(true)}>
         Добавить пост
       </MyButton>
