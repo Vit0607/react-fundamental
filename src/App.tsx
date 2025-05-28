@@ -8,28 +8,29 @@ import MyButton from './components/UI/button/MyButton';
 import type { PostType, FilterType } from './types/posts';
 import { usePosts } from './hooks/usePosts';
 import { fetchPosts } from './API/PostService';
+import Loader from './components/UI/Loader/Loader';
 
 function App() {
   const [posts, setPosts] = useState<PostType[]>([]);
 
   const [filter, setFilter] = useState<FilterType>({ sort: '', query: '' });
   const [modal, setModal] = useState<boolean>(false);
-  const [isPostLoading, setIsPostLoading] = useState<boolean>(false);
+  const [isPostLoading, setIsPostLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
 
   const getAllPosts = async () => {
     setIsPostLoading(true);
-    const posts = await fetchPosts();
-    setTimeout(() => {
+    setTimeout(async () => {
+      const posts = await fetchPosts();
       setPosts(posts);
       setIsPostLoading(false);
     }, 1000);
   };
 
   const selectedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
-
-  useEffect(() => {
-    getAllPosts();
-  }, []);
 
   const createPost = (newPost: PostType) => {
     setPosts([...posts, newPost]);
@@ -50,7 +51,15 @@ function App() {
       </MyModal>
       <PostFilter filter={filter} setFilter={setFilter} />
       {isPostLoading ? (
-        <h1>Идёт загрузка...</h1>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '50px'
+          }}
+        >
+          <Loader />
+        </div>
       ) : (
         <PostList
           remove={removePost}
