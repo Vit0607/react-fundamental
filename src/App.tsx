@@ -9,26 +9,21 @@ import type { PostType, FilterType } from './types/posts';
 import { usePosts } from './hooks/usePosts';
 import { fetchPosts } from './API/PostService';
 import Loader from './components/UI/Loader/Loader';
+import { useFetching } from './hooks/useFetching';
 
 function App() {
   const [posts, setPosts] = useState<PostType[]>([]);
 
   const [filter, setFilter] = useState<FilterType>({ sort: '', query: '' });
   const [modal, setModal] = useState<boolean>(false);
-  const [isPostLoading, setIsPostLoading] = useState<boolean>(true);
+  const [postsFetching, isPostsLoading, postError] = useFetching(async () => {
+    const posts = await fetchPosts();
+    setPosts(posts);
+  });
 
   useEffect(() => {
-    getAllPosts();
+    postsFetching();
   }, []);
-
-  const getAllPosts = async () => {
-    setIsPostLoading(true);
-    setTimeout(async () => {
-      const posts = await fetchPosts();
-      setPosts(posts);
-      setIsPostLoading(false);
-    }, 1000);
-  };
 
   const selectedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
@@ -50,7 +45,8 @@ function App() {
         <PostForm create={createPost} />
       </MyModal>
       <PostFilter filter={filter} setFilter={setFilter} />
-      {isPostLoading ? (
+      {postError && <h1>Возникла ошибка ${postError}</h1>}
+      {isPostsLoading ? (
         <div
           style={{
             display: 'flex',
