@@ -8,11 +8,9 @@ type PostType = {
 };
 
 const PostItem = ({
-  number,
   remove,
   post
 }: {
-  number: number;
   post: PostType;
   remove: (post: PostType) => void;
 }) => {
@@ -20,7 +18,7 @@ const PostItem = ({
     <div className={styles.post}>
       <div className={styles.post__content}>
         <strong>
-          {number}. {post.title}
+          {post.id}. {post.title}
         </strong>
         <div>{post.body}</div>
       </div>

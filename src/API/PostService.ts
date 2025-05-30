@@ -1,9 +1,15 @@
 import axios from 'axios';
 import type { PostType } from '../types/posts';
 
-export const fetchPosts = async (): Promise<PostType[]> => {
+export const fetchPosts = async (limit: number = 10, page: number = 1) => {
   const response = await axios.get<PostType[]>(
-    'https://jsonplaceholder.typicode.com/posts'
+    'https://jsonplaceholder.typicode.com/posts',
+    {
+      params: {
+        _limit: limit,
+        _page: page
+      }
+    }
   );
-  return response.data;
+  return response;
 };

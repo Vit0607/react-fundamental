@@ -25,15 +25,8 @@ const PostList = ({ posts, title, remove }: PostListProps) => {
   return (
     <>
       <h1 className={styles.title}>{title}</h1>
-      {posts.map((post, index) => {
-        return (
-          <PostItem
-            key={post.id}
-            number={index + 1}
-            post={post}
-            remove={remove}
-          />
-        );
+      {posts.map(post => {
+        return <PostItem key={post.id} post={post} remove={remove} />;
       })}
     </>
   );
