@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  padding: 10px;
+  background-color: lightgray;
+  width: 100%;
+
+  .link {
+    &.active {
+      color: orange;
+    }
+  }
+}
