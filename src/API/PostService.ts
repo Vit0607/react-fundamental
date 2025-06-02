@@ -13,3 +13,10 @@ export const fetchPosts = async (limit: number = 10, page: number = 1) => {
   );
   return response;
 };
+
+export const getById = async (id: number) => {
+  const response = await axios.get<PostType>(
+    'https://jsonplaceholder.typicode.com/posts/' + id
+  );
+  return response;
+};

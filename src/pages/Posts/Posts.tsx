@@ -20,7 +20,7 @@ function Posts() {
   const [limit] = useState<number>(10);
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [postsFetching, isPostsLoading, postError] = useFetching(async () => {
+  const [postsFetching, isPostsLoading, postsError] = useFetching(async () => {
     const response = await fetchPosts(limit, page);
     setPosts(response.data);
     const totalCount = response.headers['x-total-count'];
@@ -55,7 +55,7 @@ function Posts() {
         <PostForm create={createPost} />
       </MyModal>
       <PostFilter filter={filter} setFilter={setFilter} />
-      {postError && <h1>Возникла ошибка ${postError}</h1>}
+      {postsError && <h1>Возникла ошибка ${postsError}</h1>}
       {isPostsLoading ? (
         <div
           style={{

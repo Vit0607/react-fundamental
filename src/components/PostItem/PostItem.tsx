@@ -1,5 +1,6 @@
 import styles from './PostItem.module.scss';
 import MyButton from '../UI/button/MyButton';
+import { Link } from 'react-router';
 
 type PostType = {
   id: number;
@@ -23,6 +24,9 @@ const PostItem = ({
         <div>{post.body}</div>
       </div>
       <div className={styles.post__btns}>
+        <Link to={`/posts/${post.id}`}>
+          <MyButton onClick={() => remove(post)}>Открыть</MyButton>
+        </Link>
         <MyButton onClick={() => remove(post)}>Удалить</MyButton>
       </div>
     </div>

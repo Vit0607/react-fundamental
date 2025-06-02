@@ -8,6 +8,7 @@ import Posts from './pages/Posts/Posts';
 import Error from './pages/Error/Error';
 import Home from './pages/Home/Home';
 import Layout from './layout/Layout/Layout';
+import PostIdPage from './pages/PostIdPage/PostIdPage';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: '/posts',
         element: <Posts />
+      },
+      {
+        path: '/posts/:id',
+        element: <PostIdPage />
       },
       {
         path: '*',

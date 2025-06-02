@@ -13,6 +13,7 @@ const Pagination = ({ totalPages, page, changePage }: PaginationProps) => {
     <div className={styles.pages__wrapper}>
       {pagesArray.map(p => (
         <span
+          key={p}
           onClick={() => changePage(p)}
           className={
             page == p
