@@ -10,3 +10,11 @@ export type FilterType = {
   sort: SortKey | '';
   query: string;
 };
+
+export type CommentType = {
+  postId: number;
+  id: number;
+  name: string;
+  email: string;
+  body: string;
+};

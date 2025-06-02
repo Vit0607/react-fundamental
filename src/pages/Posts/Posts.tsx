@@ -29,7 +29,7 @@ function Posts() {
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
   useEffect(() => {
-    postsFetching();
+    postsFetching(null);
   }, [page]);
 
   const createPost = (newPost: PostType) => {
@@ -43,7 +43,7 @@ function Posts() {
 
   const changePage = (page: number) => {
     setPage(page);
-    postsFetching();
+    postsFetching(null);
   };
 
   return (

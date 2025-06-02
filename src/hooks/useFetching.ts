@@ -1,15 +1,15 @@
 import { useState } from 'react';
 
 export const useFetching = (
-  callback: () => Promise<unknown>
-): [() => Promise<void>, boolean, string] => {
+  callback: (arg: number | null) => Promise<unknown>
+): [(arg: number | null) => Promise<void>, boolean, string] => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
 
-  const fetching = async () => {
+  const fetching = async (arg: number | null) => {
     try {
       setIsLoading(true);
-      await callback();
+      await callback(arg);
     } catch (e) {
       if (e instanceof Error) {
         setError(e.message);
